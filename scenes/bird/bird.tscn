@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://dl6n1hrhvidfe"]
+
+[ext_resource type="Texture2D" uid="uid://df6ft6mhdwrg3" path="res://assets/sprites/bird/yellow bird/yellowbird-downflap.png" id="1_2sink"]
+[ext_resource type="Script" path="res://scenes/bird/bird.gd" id="1_8yr3d"]
+[ext_resource type="Texture2D" uid="uid://bf4p3wfeh3ht0" path="res://assets/sprites/bird/yellow bird/yellowbird-midflap.png" id="2_huvy6"]
+[ext_resource type="Texture2D" uid="uid://deix0tqkll6av" path="res://assets/sprites/bird/yellow bird/yellowbird-upflap.png" id="3_u2lse"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vgl8w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_2sink")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_huvy6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_u2lse")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_huvy6")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 0.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tq15x"]
+radius = 11.0454
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bhw7u"]
+radius = 11.0
+
+[node name="Bird" type="CharacterBody2D"]
+script = ExtResource("1_8yr3d")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_vgl8w")
+animation = &"fly"
+frame = 1
+frame_progress = 0.577528
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_tq15x")
+
+[node name="ScoreTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_bhw7u")
+
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]

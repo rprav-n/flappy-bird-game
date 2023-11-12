@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://d4kq4ve0wxy41"]
+
+[ext_resource type="Script" path="res://scenes/start_screen/start_screen.gd" id="1_ec4tp"]
+[ext_resource type="PackedScene" uid="uid://di523eero4tui" path="res://scenes/ground_parallax/ground_parallax.tscn" id="1_jdjmi"]
+[ext_resource type="PackedScene" uid="uid://cufcfofl6hfbn" path="res://scenes/bg_prallax/background_parallax.tscn" id="2_lamme"]
+[ext_resource type="PackedScene" uid="uid://cfxmidh3t80ee" path="res://scenes/ui/flappy_bird/flappy_bird.tscn" id="4_6l2ra"]
+[ext_resource type="FontFile" uid="uid://guc1lnum13m1" path="res://assets/font/bit5x3.ttf" id="5_xf352"]
+
+[node name="StartScreen" type="CanvasLayer"]
+script = ExtResource("1_ec4tp")
+
+[node name="Environments" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="GroundParallax" parent="Environments" instance=ExtResource("1_jdjmi")]
+
+[node name="BackgroundParallax" parent="Environments" instance=ExtResource("2_lamme")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -89.0
+offset_top = -49.0
+offset_right = 89.0
+offset_bottom = 49.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="FlappyBird" parent="VBoxContainer" instance=ExtResource("4_6l2ra")]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_xf352")
+theme_override_font_sizes/font_size = 16
+text = "Start"
+
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

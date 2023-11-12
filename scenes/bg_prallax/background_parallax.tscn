@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cufcfofl6hfbn"]
+
+[ext_resource type="Script" path="res://scenes/bg_prallax/background_parallax.gd" id="1_300w5"]
+[ext_resource type="Texture2D" uid="uid://cexivrwi782ck" path="res://assets/sprites/environment/background-day.png" id="1_l56jr"]
+
+[node name="BackgroundParallax" type="ParallaxBackground"]
+script = ExtResource("1_300w5")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(288, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer"]
+position = Vector2(144, 256)
+texture = ExtResource("1_l56jr")

@@ -1,0 +1,59 @@
+[gd_scene load_steps=11 format=3 uid="uid://etidb5kek1o"]
+
+[ext_resource type="PackedScene" uid="uid://c2kmrobvkwx88" path="res://scenes/wait_screen/wait_screen.tscn" id="1_73sdg"]
+[ext_resource type="Script" path="res://scenes/game/game.gd" id="1_gkmjj"]
+[ext_resource type="PackedScene" uid="uid://dl6n1hrhvidfe" path="res://scenes/bird/bird.tscn" id="2_8swm2"]
+[ext_resource type="PackedScene" uid="uid://di523eero4tui" path="res://scenes/ground_parallax/ground_parallax.tscn" id="2_rb54d"]
+[ext_resource type="PackedScene" uid="uid://ewbl8uwptvrx" path="res://scenes/ui/ui.tscn" id="3_it8kk"]
+[ext_resource type="PackedScene" uid="uid://cufcfofl6hfbn" path="res://scenes/bg_prallax/background_parallax.tscn" id="4_h5dkv"]
+[ext_resource type="PackedScene" uid="uid://cv213gl7od54h" path="res://scenes/pipe_spawner/pipe_spawner.tscn" id="5_5wxja"]
+[ext_resource type="PackedScene" uid="uid://6onr3l5r1qnf" path="res://scenes/ground/ground.tscn" id="5_v736w"]
+[ext_resource type="PackedScene" uid="uid://426k4yr1ghvt" path="res://scenes/game_over/game_over_screen.tscn" id="6_5ifb8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qav84"]
+size = Vector2(20, 512)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_gkmjj")
+
+[node name="UI" parent="." instance=ExtResource("3_it8kk")]
+
+[node name="GameOverScreen" parent="." instance=ExtResource("6_5ifb8")]
+visible = false
+
+[node name="WaitScreen" parent="." instance=ExtResource("1_73sdg")]
+process_mode = 3
+
+[node name="Environments" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="GroundParallax" parent="Environments" instance=ExtResource("2_rb54d")]
+
+[node name="BackgroundParallax" parent="Environments" instance=ExtResource("4_h5dkv")]
+
+[node name="PipeBoundArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PipeBoundArea"]
+position = Vector2(-72, 256)
+shape = SubResource("RectangleShape2D_qav84")
+
+[node name="Ground" parent="." instance=ExtResource("5_v736w")]
+position = Vector2(0, 401)
+
+[node name="Ground2" parent="." instance=ExtResource("5_v736w")]
+position = Vector2(0, -16)
+
+[node name="PipeSpawner" parent="." instance=ExtResource("5_5wxja")]
+metadata/_edit_lock_ = true
+
+[node name="Bird" parent="." instance=ExtResource("2_8swm2")]
+position = Vector2(144, 200)
+collision_layer = 2
+collision_mask = 5
+metadata/_edit_lock_ = true
+
+[connection signal="visibility_changed" from="WaitScreen" to="." method="_on_wait_screen_visibility_changed"]
+[connection signal="area_entered" from="PipeBoundArea" to="." method="_on_pipe_bound_area_area_entered"]

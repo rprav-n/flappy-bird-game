@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://6onr3l5r1qnf"]
+
+[ext_resource type="Script" path="res://scenes/ground/ground.gd" id="1_ig60h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ncavg"]
+size = Vector2(336, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6pujc"]
+size = Vector2(336, 10)
+
+[node name="Ground" type="RigidBody2D"]
+collision_mask = 2
+gravity_scale = 0.0
+max_contacts_reported = 1
+contact_monitor = true
+freeze = true
+script = ExtResource("1_ig60h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(144, 10)
+shape = SubResource("RectangleShape2D_ncavg")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(144, 3)
+shape = SubResource("RectangleShape2D_6pujc")
