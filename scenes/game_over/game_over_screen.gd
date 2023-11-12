@@ -2,6 +2,7 @@ class_name GameOverScreen
 
 extends CanvasLayer
 
+@onready var retry_button: Button = %RetryButton
 
 func _ready() -> void:
 	visible = false
@@ -10,6 +11,7 @@ func _ready() -> void:
 
 func _on_game_over() -> void:
 	visible = true
+	retry_button.grab_focus()
 
 
 func _on_retry_button_pressed() -> void:

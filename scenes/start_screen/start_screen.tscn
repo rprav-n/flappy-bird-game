@@ -34,6 +34,7 @@ theme_override_constants/separation = 30
 layout_mode = 2
 
 [node name="StartButton" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_xf352")
 theme_override_font_sizes/font_size = 16
